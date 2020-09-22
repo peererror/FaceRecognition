@@ -22,7 +22,7 @@ data = load('/Users/eprmdev_2/Documents/FaceApp/model/facedataset.npz')
 trainX, trainy, testX, testy = data['arr_0'], data['arr_1'], data['arr_2'], data['arr_3']
 print('Loaded: ', trainX.shape, trainy.shape, testX.shape, testy.shape)
 # load the facenet model
-model = load_model('/Users/eprmdev_2/Documents/FaceApp/model/facenet_keras.h5')
+model = load_model('/content/FaceRecognition/model/facenet_keras.h5')
 print('Loaded Model')
 # convert each face in the train set to an embedding
 newTrainX = list()
@@ -39,4 +39,4 @@ for face_pixels in testX:
 newTestX = asarray(newTestX)
 print(newTestX.shape)
 # save arrays to one file in compressed format
-savez_compressed('/Users/eprmdev_2/Documents/FaceApp/model/face_embeddings.npz', newTrainX, trainy, newTestX, testy)
+savez_compressed('/content/FaceRecognition/face_embeddings.npz', newTrainX, trainy, newTestX, testy)
