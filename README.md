@@ -1,4 +1,4 @@
-Face-_Recognition
+FaceRecognition
 identify the face
 
 Download keras facenet model file
