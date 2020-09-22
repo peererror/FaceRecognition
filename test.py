@@ -12,16 +12,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import Normalizer
 from sklearn.svm import SVC
-from flask import render_template, request, jsonify
-from flask import Flask
-import flask
 
-
-
-# App definition
-app = Flask(__name__,template_folder='templates')
-
-@app.route('/')
 
 def extract_image(image):
   img1 = Image.open(image)
@@ -39,7 +30,7 @@ def extract_image(image):
   face_array = asarray(image1)
   return face_array
 
-@app.route('/predict', methods=['POST','GET'])
+
 
 #extracting embeddings
 def extract_embeddings(model,face_pixels):
@@ -52,15 +43,14 @@ def extract_embeddings(model,face_pixels):
   return yhat[0]
   
 #load data and reshape the image
-Img = '/Users/eprmdev_2/Documents/FaceApp/data/train/revathi/20171224_112035.jpg'
-#plt.imshow(Img)
+Img = '/content/FaceRecognition/test/20171224_112035.jpg'
 face = extract_image(Img)
 testx = asarray(face)
 testx = testx.reshape(-1,160,160,3)
 print("Input test data shape: ",testx.shape)
 
 #find embeddings
-model = load_model('/Users/eprmdev_2/Documents/FaceApp/model/facenet_keras.h5')
+model = load_model('/content/FaceRecognition/model/facenet_keras.h5')
 new_testx = list()
 for test_pixels in testx:
   embeddings = extract_embeddings(model,test_pixels)
@@ -68,10 +58,10 @@ for test_pixels in testx:
 new_testx = asarray(new_testx)  
 print("Input test embedding shape: ",new_testx.shape)
 
-data1 = load('/Users/eprmdev_2/Documents/FaceApp/model/facedataset.npz')
+data1 = load('/content/FaceRecognition/facedataset.npz')
 train_x,train_y = data1['arr_0'],data1['arr_1']
 
-data = load('/Users/eprmdev_2/Documents/FaceApp/model/face_embeddings.npz')
+data = load('/content/FaceRecognition/face_embeddings.npz')
 trainx,trainy= data['arr_0'],data['arr_1']
 print("Loaded data: Train=%d , Test=%d"%(trainx.shape[0],new_testx.shape[0]))
 
@@ -119,5 +109,3 @@ plt.imshow(train_x[val])
 trainy = out_encode.inverse_transform(trainy)
 plt.title(trainy[val])
 plt.xlabel("Predicted Data")
-if __name__ == "__main__":
-   app.run()
