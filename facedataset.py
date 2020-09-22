@@ -67,9 +67,9 @@ def load_dataset(directory):
 	return asarray(X), asarray(y)
 
 # load train dataset
-trainX, trainy = load_dataset('/Users/eprmdev_2/Documents/FaceApp/data/train/')
+trainX, trainy = load_dataset('/content/FaceRecognition/train/')
 print(trainX.shape, trainy.shape)
 # load test dataset
-testX, testy = load_dataset('/Users/eprmdev_2/Documents/FaceApp/data/val/')
+testX, testy = load_dataset('/content/FaceRecognition/val/')
 # save arrays to one file in compressed format
-savez_compressed('/Users/eprmdev_2/Documents/FaceApp/model/facedataset.npz', trainX, trainy, testX, testy)
+savez_compressed('/content/FaceRecognition/facedataset.npz', trainX, trainy, testX, testy)
